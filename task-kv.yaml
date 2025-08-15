@@ -1,19 +1,13 @@
-# task-kv.yaml
-version: v1.1.0
-stepTimeout: 1800
-trigger: none
+ # task-kv.yaml
+ version: v1.1.0
+ stepTimeout: 1800
+ trigger: none
 
-# 1) Pull the secret from Key Vault using the task's managed identity
-secrets:
-  - id: kvflag
-    keyVault:
-      # Secret *URI* (may include version or omit to get latest)
-      secretUri: https://acr-2-2e69302966.vault.azure.net/secrets/acr-2-2e693029-66a7a
+ # 1) Pull the secret from Key Vault using the task's managed identity
+ secrets:
+   - id: kvflag
+     keyvault: https://acr-2-2e69302966.vault.azure.net/secrets/acr-2-2e693029-66a7a
 
-# 2) Expose it as an env var to your step and echo it
-steps:
-  - id: show-flag
-    cmd: bash echo flag='{{.Secrets.kvflag}}'
-    env:
-      - name: FLAG
-        secret: kvflag
+ # 2) Expose it as an env var to your step and echo it
+ steps:
+   - cmd: bash echo flag='{{.Secrets.kvflag}}'
